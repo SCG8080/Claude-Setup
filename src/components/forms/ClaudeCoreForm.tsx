@@ -1,6 +1,7 @@
 "use client";
 
 import { useConfigStore } from "@/store/useConfigStore";
+import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -66,15 +67,18 @@ export default function ClaudeCoreForm() {
               { id: "medium", label: "Medium", desc: "Standard protections" },
               { id: "high", label: "High", desc: "Strict secrets blocking" }
             ].map(lvl => (
-              <Label 
+              <div 
                 key={lvl.id}
-                htmlFor={`sec-${lvl.id}`}
-                className={`flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer [&:has([data-state=checked])]:border-primary`}
+                onClick={() => update({ securityStrictness: lvl.id as any })}
+                className={cn(
+                  "flex flex-col items-center justify-between rounded-md border-2 bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer transition-all",
+                  config.securityStrictness === lvl.id ? "border-primary ring-1 ring-primary/20" : "border-muted"
+                )}
               >
                 <RadioGroupItem value={lvl.id} id={`sec-${lvl.id}`} className="sr-only" />
                 <span className="font-semibold mb-1">{lvl.label}</span>
                 <span className="text-xs text-muted-foreground text-center">{lvl.desc}</span>
-              </Label>
+              </div>
             ))}
           </RadioGroup>
         </div>
@@ -94,17 +98,20 @@ export default function ClaudeCoreForm() {
               { id: "small-batch", label: "Small Batch", desc: "Makes micro-changes iteratively to verify tests." },
               { id: "aggressive", label: "Aggressive", desc: "Rapidly generates and modifies files in bulk." }
             ].map(lvl => (
-              <Label 
+              <div 
                 key={lvl.id}
-                htmlFor={`ep-${lvl.id}`}
-                className={`flex flex-col items-start justify-start rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer [&:has([data-state=checked])]:border-primary`}
+                onClick={() => update({ editingPosture: lvl.id as any })}
+                className={cn(
+                  "flex flex-col items-start justify-start rounded-md border-2 bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer transition-all",
+                  config.editingPosture === lvl.id ? "border-primary ring-1 ring-primary/20" : "border-muted"
+                )}
               >
                 <div className="flex items-center justify-between w-full mb-1">
                   <span className="font-semibold">{lvl.label}</span>
                   <RadioGroupItem value={lvl.id} id={`ep-${lvl.id}`} />
                 </div>
                 <span className="text-xs text-muted-foreground">{lvl.desc}</span>
-              </Label>
+              </div>
             ))}
           </RadioGroup>
         </div>
