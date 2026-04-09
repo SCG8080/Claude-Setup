@@ -29,13 +29,15 @@ function TreeNode({ node, depth = 0 }: { node: FileNode; depth?: number }) {
         )}
         style={{ paddingLeft: `${depth * 16 + 4}px` }}
       >
-        {isFolder && (
+        {isFolder ? (
           open
             ? <ChevronDown className="w-3 h-3 text-muted-foreground shrink-0" />
             : <ChevronRight className="w-3 h-3 text-muted-foreground shrink-0" />
+        ) : (
+          <div className="w-3 h-3 shrink-0" />
         )}
         <Icon className={cn("w-3.5 h-3.5 shrink-0", isFolder ? "text-amber-500" : node.name.endsWith(".md") ? "text-blue-500" : node.name.endsWith(".json") ? "text-green-500" : node.name.endsWith(".sh") ? "text-orange-500" : "text-muted-foreground")} />
-        <span>{node.name}</span>
+        <span className="truncate">{node.name}</span>
       </button>
       {isFolder && open && node.children?.map((child) => (
         <TreeNode key={child.path} node={child} depth={depth + 1} />

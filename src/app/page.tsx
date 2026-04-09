@@ -50,14 +50,14 @@ export default function Home() {
         <Header />
         <main className="flex flex-1 overflow-hidden">
           {/* Center: Multi-step form */}
-          <div className="w-full lg:w-[48%] flex flex-col border-r bg-background overflow-y-auto">
+          <div className="flex-1 min-w-[360px] flex flex-col border-r bg-background overflow-y-auto">
             <div className="p-8 max-w-2xl mx-auto w-full pb-16">
               {renderForm()}
             </div>
           </div>
 
           {/* Right: Live preview panel */}
-          <div className="hidden lg:flex flex-1 flex-col bg-muted/10 overflow-hidden">
+          <div className="hidden xl:flex w-[400px] shrink-0 flex-col bg-muted/10 overflow-hidden">
             <div className="border-b px-4 py-2 bg-background flex items-center gap-1">
               {previewTabs.map((tab) => (
                 <button
