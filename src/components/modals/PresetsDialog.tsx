@@ -17,8 +17,13 @@ import { cn } from "@/lib/utils";
 import { Sparkles, Check } from "lucide-react";
 import { ConfigState } from "@/types/configSchema";
 
-export function PresetsDialog({ trigger }: { trigger: React.ReactElement }) {
-  const [open, setOpen] = useState(false);
+export function PresetsDialog({ 
+  open, 
+  onOpenChange 
+}: { 
+  open: boolean; 
+  onOpenChange: (open: boolean) => void;
+}) {
   const config = useConfigStore((s) => s.config);
   const importConfig = useConfigStore((s) => s.importConfig);
 
@@ -28,12 +33,11 @@ export function PresetsDialog({ trigger }: { trigger: React.ReactElement }) {
       ...preset,
       basics: { ...config.basics, ...(preset.basics ?? {}) },
     });
-    setOpen(false);
+    onOpenChange(false);
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger render={trigger} />
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Starter Presets</DialogTitle>
