@@ -71,12 +71,14 @@ export default function ClaudeCoreForm() {
                 key={lvl.id}
                 onClick={() => update({ securityStrictness: lvl.id as any })}
                 className={cn(
-                  "flex flex-col items-center justify-between rounded-md border-2 bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer transition-all",
-                  config.securityStrictness === lvl.id ? "border-primary ring-1 ring-primary/20" : "border-muted"
+                  "flex flex-col items-center justify-between rounded-md border-2 p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer transition-all",
+                  config.securityStrictness === lvl.id 
+                    ? "border-primary bg-primary/5 ring-1 ring-primary/20" 
+                    : "border-muted bg-popover"
                 )}
               >
                 <RadioGroupItem value={lvl.id} id={`sec-${lvl.id}`} className="sr-only" />
-                <span className="font-semibold mb-1">{lvl.label}</span>
+                <span className={cn("font-semibold mb-1", config.securityStrictness === lvl.id ? "text-primary" : "")}>{lvl.label}</span>
                 <span className="text-xs text-muted-foreground text-center">{lvl.desc}</span>
               </div>
             ))}
@@ -102,12 +104,14 @@ export default function ClaudeCoreForm() {
                 key={lvl.id}
                 onClick={() => update({ editingPosture: lvl.id as any })}
                 className={cn(
-                  "flex flex-col items-start justify-start rounded-md border-2 bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer transition-all",
-                  config.editingPosture === lvl.id ? "border-primary ring-1 ring-primary/20" : "border-muted"
+                  "flex flex-col items-start justify-start rounded-md border-2 p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer transition-all",
+                  config.editingPosture === lvl.id 
+                    ? "border-primary bg-primary/5 ring-1 ring-primary/20" 
+                    : "border-muted bg-popover"
                 )}
               >
                 <div className="flex items-center justify-between w-full mb-1">
-                  <span className="font-semibold">{lvl.label}</span>
+                  <span className={cn("font-semibold", config.editingPosture === lvl.id ? "text-primary" : "")}>{lvl.label}</span>
                   <RadioGroupItem value={lvl.id} id={`ep-${lvl.id}`} />
                 </div>
                 <span className="text-xs text-muted-foreground">{lvl.desc}</span>
